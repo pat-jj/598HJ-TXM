@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/text-mining-assignment1.iml" filepath="$PROJECT_DIR$/.idea/text-mining-assignment1.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/pj20_assignment.iml" filepath="$PROJECT_DIR$/.idea/pj20_assignment.iml" />
     </modules>
   </component>
 </project>
