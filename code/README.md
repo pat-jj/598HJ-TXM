@@ -84,3 +84,14 @@ $ python evaluate.py --dataset ${dataset}
 ```
 
 The accuracy will be printed out on the terminal.
+
+My latest result:
+```
+(txm) [pj20@sunlab-serv-03 code]$ python evaluate.py --dataset news
+>>> Accuracy:  0.78
+>>> F1:  0.7889107098889823
+
+(txm) [pj20@sunlab-serv-03 code]$ python evaluate.py --dataset movies
+>>> Accuracy:  0.7
+>>> F1:  0.7
+```
