@@ -1,4 +1,4 @@
-## CS598 - Text Mining Assignment#1 by Pengcheng Jiang (pj20)
+## CS598 - Text Mining Assignment#1 by Patrick Jiang (pj20)
 
 This document is to show you how to run the code to reproduce my result.
 

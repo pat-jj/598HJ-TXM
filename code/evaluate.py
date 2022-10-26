@@ -1,16 +1,19 @@
+from sklearn.metrics import f1_score as f1
+
 def evaluate(true_path, pred_path, lines):
     with open(true_path) as f:
         true_data = f.readlines()
     with open(pred_path) as f:
         pred_data = f.readlines()
+        
     correct_count = 0
     for i in range(lines):
         if true_data[i] == pred_data[i]:
             correct_count += 1
     acc = correct_count / lines
-    eval_res = "Accuracy of the prediction: " + acc
-    return eval_res
-
+    print("Accuracy: ", acc)
+    print("F1: ", f1(true_data[:100], pred_data[:100], average='micro'))
+    
 
 def construct_args():
     import argparse
@@ -33,7 +36,7 @@ def main():
     current = '../data_process/data_wstc/'
     true_file = current + args.dataset + '/' + args.labels
     pred_file = current + args.dataset + '/' + args.pred
-    print(evaluate(true_file, pred_file, args.lines))
+    evaluate(true_file, pred_file, args.lines)
 
 
 if __name__ == '__main__':

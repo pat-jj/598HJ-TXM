@@ -115,15 +115,15 @@ if __name__ == "__main__":
 
         if args.dataset == 'news':
             update_interval = 50
-            pretrain_epochs = 40
-            self_lr = 1e-4
+            pretrain_epochs = 20
+            self_lr = 1e-3
             max_sequence_length = 100
 
         elif args.dataset == 'movies':
             update_interval = 50
-            pretrain_epochs = 30
+            pretrain_epochs = 40
             self_lr = 1e-4
-            max_sequence_length = 500
+            max_sequence_length = 600
 
         decay = 1e-6
 
