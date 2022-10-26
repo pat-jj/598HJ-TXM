@@ -21,7 +21,8 @@ def take_k_lines(in_file, out_file, k):
 
     for i in range(k):
         text = text + lines[i]
-
+        
+    text = text[:-1]
     text_file = open(out_file, 'w', encoding='utf-8')
     print(text, file=text_file)
 

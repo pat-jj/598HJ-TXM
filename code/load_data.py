@@ -14,9 +14,7 @@ def read_file(data_dir, with_evaluation):
         csv.field_size_limit(500 * 1024 * 1024)
         reader = csv.reader(csvfile)
         for row in reader:
-            if data_dir == './movies' or data_dir == './news':
-                data.append(row[1])
-
+            data.append(row[1])
         y = None
     return data, y
 
@@ -186,8 +184,11 @@ def load_keywords(data_path, sup_source):
 
 
 def load_cnn(dataset_name, sup_source, num_keywords=10, with_evaluation=True, truncate_len=None):
-    data_path = './' + dataset_name
-    data, y = read_file(data_path, with_evaluation)
+    try:
+        data_path = '../data_process/data_wstc/' + dataset_name
+        data, y = read_file(data_path, with_evaluation)
+    except:
+        print("Please run preprocess first!")
 
     sz = len(data)
     np.random.seed(1234)
@@ -231,8 +232,11 @@ def load_cnn(dataset_name, sup_source, num_keywords=10, with_evaluation=True, tr
 
 
 def load_rnn(dataset_name, sup_source, num_keywords=10, with_evaluation=True, truncate_len=None):
-    data_path = './' + dataset_name
-    data, y = read_file(data_path, with_evaluation)
+    try:
+        data_path = '../data_process/data_wstc/' + dataset_name
+        data, y = read_file(data_path, with_evaluation)
+    except:
+        print("Please run preprocess first!")
 
     sz = len(data)
     np.random.seed(1234)

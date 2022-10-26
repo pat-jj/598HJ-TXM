@@ -22,6 +22,7 @@ def get_keywords_wstc(source_file, out_file):
                 text += ll
             else:
                 text += words[idx]
+    text = text[:-1]
     text_file = open(out_file, 'w')
     print(text, file=text_file)
 
@@ -36,7 +37,7 @@ def get_classes_wstc(source_file, out_file):
         count += 1
         text += head
         text += line
-
+    text = text[:-1]
     text_file = open(out_file, 'w')
     print(text, file=text_file)
 
@@ -66,14 +67,15 @@ def main():
     sys.path.append("../")
 
     wstc_data_path = "../data_process/data_wstc"
+    
+    mkdir(wstc_data_path)
+    mkdir(wstc_data_path + '/movies')
+    mkdir(wstc_data_path + '/news')
 
-    mkdir(wstc_data_path + 'movies')
-    mkdir(wstc_data_path + 'news')
-
-    shutil.copyfile("../data_process/original_data/movies/movies_train_labels.txt",
+    shutil.copy("../data_process/original_data/movies/movies_train_labels.txt",
                     "../data_process/data_wstc/movies/labels.txt")
 
-    shutil.copyfile("../data_process/original_data/news/news_train_labels.txt",
+    shutil.copy("../data_process/original_data/news/news_train_labels.txt",
                     "../data_process/data_wstc/news/labels.txt")
 
     get_keywords_wstc("../data_process/cate_results/movies_dataset/res_topic.txt",
