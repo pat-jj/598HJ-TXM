@@ -12,7 +12,7 @@ def evaluate(true_path, pred_path, lines):
             correct_count += 1
     acc = correct_count / lines
     print("Accuracy: ", acc)
-    print("F1: ", f1(true_data[:100], pred_data[:100], average='micro'))
+    print("F1-score: ", f1(true_data[:100], pred_data[:100], average='micro'))
     
 
 def construct_args():

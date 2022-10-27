@@ -53,8 +53,8 @@ def get_dataset_csv_wstc(dataset):
         lines = f.readlines()
 
     # initialize data of lists.
-    data = {'label': -1,
-            'text': lines}
+    data = {'label': "-1",
+            'text': lines[:-1]}
     df = pd.DataFrame(data)
 
     if dataset == 'movies':
