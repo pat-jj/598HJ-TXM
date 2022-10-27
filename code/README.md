@@ -38,20 +38,22 @@ You will need to get the same environment to run this code.
 To start training & inference on a dataset, you need to run the following command:
 
 ```
-$ python main.py --dataset ${dataset} --sup_source ${sup_source} --model ${model} --with_evaluation False
+$ python main.py --dataset ${dataset} --sup_source ${sup_source} --model ${model} --use_emb ${use_emb} 
 ```
 
 where you need to specify the dataset in ```${dataset}``` (could be either ```'movies'``` or ```'news'```), 
 
 the weak supervision type in ```${sup_source}``` (could be one of ```['labels', 'keywords']```), 
 
-and the type of neural model to use in ```${model}``` (could be one of ```['cnn', 'rnn']```).
+and the type of neural model to use in ```${model}``` (could be one of ```['cnn', 'rnn']```),
+
+```${use_emb}``` determines whether to use the existing embedding from the previous step (i.e. from CatE in this assignment)
 
 
 For example, to run ```cnn``` with the weak supervision type ```keywords``` on dataset ```news```, you should type:
 
 ```
-$ python main.py --dataset news --sup_source keywords --model cnn --with_evaluation False
+$ python main.py --dataset news --sup_source keywords --model cnn --use_emb True
 ```
 
 The complete prediction output will be stored in ```../data_process/data_wstc/{dataset}/out.txt```
@@ -65,20 +67,19 @@ The command is as follows:
 $ python postprocess.py --dataset ${dataset} --lines ${lines} --pred_all ${pred_all} --out ${out}
 ```
 
-where ```${dataset}``` is one of ```'movies'``` or ```'news'```, ```${lines}``` is 100 by default 
-(specified by the assignment requirement), ```${pred_all}``` is the file of the complete prediction output 
-(```out.txt``` by default), ```${out}``` is the name of processed file (```test_prediction.txt``` by default).
+where ```${dataset}``` is one of ```'movies'``` or ```'news'```, ```${lines}``` is the last k lines of labels you want to output
+, ```${pred_all}``` is the file of the complete prediction output (```out.txt``` by default), ```${out}``` is the name of processed file (```test_prediction.txt``` by default).
 
-For example, to get the prediction result of first 100 documents in ```'movies'``` dataset, you may run:
+For example, to get the prediction result of last 25000 documents in ```'movies'``` dataset, you may run:
 
 ```
-$ python postprocess.py --dataset movies
+$ python postprocess.py --dataset movies --lines 25000
 ```
 
 
 ## Step 4: Evaluation (optional)
 
-To test the accuracy of the prediction results with the given 100 labels, you can run the following code:
+To test the accuracy of the prediction results with the given 100 labels for validation, you can run the following code:
 
 ```
 $ python evaluate.py --dataset ${dataset}
@@ -89,10 +90,10 @@ The accuracy will be printed out on the terminal.
 My latest result:
 ```
 (txm) [pj20@sunlab-serv-03 code]$ python evaluate.py --dataset news
->>> Accuracy:  0.83
->>> F1-score:  0.83
+>>> Accuracy:  0.82
+>>> F1-score:  0.82
 
 (txm) [pj20@sunlab-serv-03 code]$ python evaluate.py --dataset movies
->>> Accuracy:  0.72
->>> F1-score:  0.72
+>>> Accuracy:  0.79
+>>> F1-score:  0.79
 ```

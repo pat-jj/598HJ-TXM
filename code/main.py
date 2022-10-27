@@ -9,21 +9,22 @@ from keras.optimizers import SGD
 from gen import augment, pseudodocs
 from load_data import load_dataset
 from gensim.models import word2vec
+from gensim.models import KeyedVectors
 
 
-def train_word2vec(sentence_matrix, vocabulary_inv, dataset_name, mode='skipgram',
+def train_word2vec(sentence_matrix, vocabulary_inv, dataset_name, use_emb, mode='skipgram',
                    num_features=100, min_word_count=5, context=5):
     model_dir = '../data_process/data_wstc/' + dataset_name
     model_name = "embedding.txt"
     model_name = os.path.join(model_dir, model_name)
 
     # load the embedding we obtained from CatE
-    try:
-        embedding_model = word2vec.Word2Vec.load(model_name)
+    if use_emb:
+        embedding_model = KeyedVectors.load_word2vec_format(model_name, binary=False)
         print("Loading existing Word2Vec model {}...".format(model_name))
 
     # if cannot load, generate word2vec embedding
-    except:
+    else:
         num_workers = 15  # Number of threads to run in parallel
         downsampling = 1e-3  # Downsample setting for frequent words
         print('Training Word2Vec model...')
@@ -78,8 +79,11 @@ if __name__ == "__main__":
     parser.add_argument('--model', default='cnn', choices=['cnn', 'rnn'])
     # weak supervision selection: label surface names (default), class-related keywords and labeled documents
     parser.add_argument('--sup_source', default='labels', choices=['labels', 'keywords'])
-    # whether ground truth labels are available for evaluation: True (default), False
-    parser.add_argument('--with_evaluation', default='True', choices=['True', 'False'])
+    # whether ground truth labels are available for evaluation: True , False (default)
+    parser.add_argument('--with_evaluation', default='False', choices=['True', 'False'])
+    
+    # whether to use existing embedding or not
+    parser.add_argument('--use_emb', default='True', choices=['True', 'False'])
 
     ### Training settings ###
     # mini-batch size for both pre-training and self-training: 256 (default)
@@ -185,7 +189,13 @@ if __name__ == "__main__":
         sequence_length = [doc_len, sent_len]
 
     print("\n### Input preparation ###")
-    embedding_weights = train_word2vec(x, vocabulary_inv, args.dataset)
+    
+    if args.use_emb == 'True':
+        use_emb = True
+    else:
+        use_emb = False
+        
+    embedding_weights = train_word2vec(x, vocabulary_inv, args.dataset, use_emb)
     embedding_mat = np.array([np.array(embedding_weights[word]) for word in vocabulary_inv])
 
     wstc = WSTC(input_shape=x.shape, n_classes=n_classes, y=y, model=args.model,

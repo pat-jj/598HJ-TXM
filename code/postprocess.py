@@ -14,24 +14,28 @@ def construct_args():
     return args
 
 
-def take_k_lines(in_file, out_file, k):
+def take_last_k_lines(in_file, out_file, k):
     text = ""
     with open(in_file) as f:
         lines = f.readlines()
-
-    for i in range(k):
-        text = text + lines[i]
+    
+    print("Size of the whole predicted labels: ", len(lines))
+    count = 0
+    for i in range(k, 0, -1):
+        text = text + lines[-i]
+        count += 1
         
     text = text[:-1]
     text_file = open(out_file, 'w', encoding='utf-8')
     print(text, file=text_file)
+    print("last ",count, "lines of labels have been output to ", out_file)
 
 
 def main():
     args = construct_args()
     pred_all_file = '../data_process/data_wstc/' + args.dataset + '/' + args.pred_all
     output_path = '../data/' + args.dataset + '/' + args.out
-    take_k_lines(pred_all_file, output_path, args.lines)
+    take_last_k_lines(pred_all_file, output_path, args.lines)
 
 
 if __name__ == '__main__':
