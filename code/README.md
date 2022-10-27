@@ -30,7 +30,7 @@ For each dataset, it creates 3 files:
 
 
 ## Step 2: Run the WeSTClass classification code
-The classification code is based on WeSTClass [https://github.com/yumeng5/WeSTClass] 
+The classification code is modified from the source code of WeSTClass [https://github.com/yumeng5/WeSTClass] 
 
 You will need to get the same environment to run this code.
 
@@ -88,10 +88,10 @@ The accuracy will be printed out on the terminal.
 My latest result:
 ```
 (txm) [pj20@sunlab-serv-03 code]$ python evaluate.py --dataset news
->>> Accuracy:  0.78
->>> F1:  0.7889107098889823
+>>> Accuracy:  0.83
+>>> F1-score:  0.83
 
 (txm) [pj20@sunlab-serv-03 code]$ python evaluate.py --dataset movies
->>> Accuracy:  0.7
->>> F1:  0.7
+>>> Accuracy:  0.72
+>>> F1-score:  0.72
 ```

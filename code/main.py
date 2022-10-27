@@ -16,10 +16,11 @@ def train_word2vec(sentence_matrix, vocabulary_inv, dataset_name, mode='skipgram
     model_dir = '../data_process/data_wstc/' + dataset_name
     model_name = "embedding"
     model_name = os.path.join(model_dir, model_name)
-    if os.path.exists(model_name):
+    
+    try:
         embedding_model = word2vec.Word2Vec.load(model_name)
         print("Loading existing Word2Vec model {}...".format(model_name))
-    else:
+    except:
         num_workers = 15  # Number of threads to run in parallel
         downsampling = 1e-3  # Downsample setting for frequent words
         print('Training Word2Vec model...')
