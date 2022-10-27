@@ -66,6 +66,16 @@ def get_dataset_csv_wstc(dataset):
         df.to_csv(r"../data_process/data_wstc/news/dataset.csv", header=False, index=False)
 
 
+def get_embedding(dataset):
+    source_file = None
+    if dataset == 'movies':
+        source_file = "../data_process/cate_results/movies_dataset/emb_topic_w.txt"
+        shutil.copy(source_file, "../data_process/data_wstc/movies/embedding.txt")
+    elif dataset == 'news':
+        source_file = "../data_process/cate_results/news_dataset/emb_topic_w.txt"
+        shutil.copy(source_file, "../data_process/data_wstc/news/embedding.txt")
+
+
 def main():
     sys.path.append("../")
 
@@ -96,6 +106,10 @@ def main():
     get_dataset_csv_wstc('movies')
 
     get_dataset_csv_wstc('news')
+
+    get_embedding('movies')
+
+    get_embedding('news')
 
 
 if __name__ == '__main__':

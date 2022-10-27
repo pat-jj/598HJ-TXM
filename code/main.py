@@ -14,12 +14,15 @@ from gensim.models import word2vec
 def train_word2vec(sentence_matrix, vocabulary_inv, dataset_name, mode='skipgram',
                    num_features=100, min_word_count=5, context=5):
     model_dir = '../data_process/data_wstc/' + dataset_name
-    model_name = "embedding"
+    model_name = "embedding.txt"
     model_name = os.path.join(model_dir, model_name)
-    
+
+    # load the embedding we obtained from CatE
     try:
         embedding_model = word2vec.Word2Vec.load(model_name)
         print("Loading existing Word2Vec model {}...".format(model_name))
+
+    # if cannot load, generate word2vec embedding
     except:
         num_workers = 15  # Number of threads to run in parallel
         downsampling = 1e-3  # Downsample setting for frequent words
@@ -202,7 +205,8 @@ if __name__ == "__main__":
         seed_docs, seed_label = pseudodocs(word_sup_array, gamma, background_array,
                                            sequence_length, len_avg, len_std, beta, alpha,
                                            vocabulary_inv, embedding_mat, args.model,
-                                           '../data_process/data_wstc/results/{}/{}/phase1/'.format(args.dataset, args.model))
+                                           '../data_process/data_wstc/results/{}/{}/phase1/'.format(args.dataset,
+                                                                                                    args.model))
 
         perm_seed = np.random.permutation(len(seed_label))
         seed_docs = seed_docs[perm_seed]

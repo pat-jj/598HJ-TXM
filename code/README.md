@@ -23,10 +23,11 @@ $ python preprocess.py
 
 This command will build a ```data_wstc``` folder in ```../data_process```. 
 
-For each dataset, it creates 3 files: 
+For each dataset, it creates 4 files: 
 1. ```labels.txt```, which is the 100-labels simply copied from ```/data_process/original_data```
 2. ```classes.txt```, which indexed (from 0) the categories provided by ```/data_process/original_data```
 3. ```keywords.txt```, which split the ```cate_results/res_topic``` by comma and indexed them from 0 by categories.
+4. ```embedding.txt```, which is the embedding we obtained as the result of step2 (CatE) of the assignment
 
 
 ## Step 2: Run the WeSTClass classification code
